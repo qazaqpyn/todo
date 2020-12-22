@@ -12,6 +12,10 @@ let h1folder = document.querySelectorAll(".folder-body h1");
 let dataFolder = [];
 refreshThis();
 
+
+
+
+
 //enter pressed
 inputFolder.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
@@ -36,23 +40,70 @@ function refreshThis () {
 function addingFolder() {
     if (inputFolder.value !== "" && dataFolder.length<6) {
         dataFolder.push(Folder(inputFolder.value, []));
+        taskBody.innerHTML ="";
         inputFolder.value="";
         refreshThis();
         h1folder = document.querySelectorAll(".folder-body h1");
-        console.log(h1folder);
         showCurrentFolder();
     }
 };
 
 
 function showCurrentFolder(){
-    h1folder.forEach(element => {
-        element.addEventListener("click", () => {
+    let id; 
+    for(let i = 0; i<h1folder.length; i++) {
+        h1folder[i].addEventListener("click", (e) => {
             h1folder.forEach(h1=>{
                 h1.classList.remove("folder-active");
             });
-            element.classList.add("folder-active");
+            h1folder[i].classList.add("folder-active");
+            showTasks(dataFolder[i]);
         });
+    }
+   
+    addingTask();
+};
+
+
+function addingTask(){
+    taskAdd.addEventListener("click", ()=>{
+        for (let i = 0; i< h1folder.length; i++){
+            console.log(h1folder[i].classList);
+            if (h1folder[i].classList.value === "folder-active") {
+                const taskName = document.createElement("input");
+                const taskDate = document.createElement("input");
+                const divTask = document.createElement("div"); 
+                const addTaskButton = document.createElement("button");
+                divTask.classList.add("task-adding");
+                taskName.setAttribute("placeholder","Name:");
+                taskDate.setAttribute("placeholder", "Date:");
+                taskDate.setAttribute("type","date");
+                addTaskButton.innerText = "add";
+                taskBody.innerHTML = "";
+                divTask.append(taskName,taskDate,addTaskButton);
+                taskBody.appendChild(divTask);
+                addTaskButton.addEventListener('click', ()=>{
+                    addingListTasks(taskName.value,taskDate.value, i);
+                    showTasks(dataFolder[i]);
+                });
+                
+            }
+        };
     });
 };
 
+function addingListTasks(name, date, i) {
+    if (name !== "" && date !== "") {
+        dataFolder[i].addTask(name,date,false);
+    }
+}
+
+function showTasks (currentFolder) {
+    taskBody.innerHTML = "";
+    currentFolder.getTasks().forEach(element => {
+        console.log(element);
+        let taskName = document.createElement("h1");
+        taskName.innerText = element.getName();
+        taskBody.appendChild(taskName);
+    });
+}

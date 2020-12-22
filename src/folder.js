@@ -8,13 +8,13 @@ const Folder = (name, dataTasks) => {
     }
 
     const addTask = (name, date, done) => {
-
-        dataTasks.push(Task(name,date,done));
+        dataTasks.push(Task(name,date,done)); 
     }
 
     const deleteTask = (id) => {
         dataTasks.splice(id,1);
     }
+    
 
     return {getName,getTasks,addTask,deleteTask}
 }

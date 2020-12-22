@@ -128,3 +128,36 @@ button {
     border-bottom:2px solid hsl(0, 100%, 84%);
     width: 90%;
 }
+
+.task-adding {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 300px;
+    width: 60%;
+    margin: auto;
+}
+
+.task-adding input {
+    border:0;
+    border-bottom:2px solid hsl(0, 100%, 84%);  
+    background:transparent;
+    padding: 0;
+    padding:8px 0 5px 0;
+    font-size:30px;
+    margin-top: 15px;
+    padding: 0;
+    text-align: center;
+    font-family: Papyrus;
+    outline: none;
+}
+
+.task-adding button {
+    font-family: Papyrus;
+    width: 100%;
+    border-radius: 0 24px 24px 24px;
+}
+
+.task-adding button:hover {
+    border-radius: 24px;
+}
