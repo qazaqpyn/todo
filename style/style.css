@@ -1,0 +1,98 @@
+:root {
+    --colour-black: #1e1e1e;
+    --colour-white: #ffffff;
+    --font-family: Lato,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+    --font-size: 100%;
+  }
+
+body {
+    background-color: rgb(56,102,136);
+
+}
+.main {
+    display: grid;
+    grid-template-columns: 33% 66%;
+    grid-template-rows: 7vh 80vh auto;
+    grid-template-areas:
+    "header header"
+    "folders tasks"
+    "footer footer";
+
+}
+
+.header {
+    grid-area: header;
+}
+
+.folder {
+    grid-area: folders;
+    border: 1px solid rgb(56,102,136);
+    background-color: white;
+    border-radius: 24px 0 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.task {
+    grid-area: tasks;
+    border: 1px solid rgb(56,102,136);
+    background-color: rgb(240, 240,240);
+    border-radius: 0 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bottom {
+    grid-area: footer;
+    margin: auto;
+}
+
+.bottom p {
+    
+}
+
+.header h1 {
+    margin: 0;
+}
+button {
+
+}
+
+button,
+.button{
+  --button: hsl(0, 0%, 12%);
+  --button-hover: hsl(0, 0%, 20%);
+  --button-active:  hsl(0, 0%, 30%);
+  --button-visited: hsl(0, 0%, 20%);
+  --button-colour: var(--colour-white);
+  --button-border: var(--colour-black);
+}
+button {
+    padding: .9rem 1.7rem;
+    color: var(--button-colour);
+    font-weight: 500;
+    font-size: 40px;
+    transition: all 0.3s ease-in-out;
+    background: var(--button);
+    border: solid 1px var(--button-border);
+    box-shadow: inset 0 0 0 2px var(--colour-white);
+    margin-right: 1em;
+    outline: none
+  }
+  
+  button:hover {
+    text-decoration: underline;
+    background: var(--button-hover);
+    box-shadow: inset 0 0 0 4px var(--colour-white);
+  }
+  
+  button:active {
+    background: var(--button-active);
+  }
+  
+  button:visited {
+    background: var(--button-visited);
+  }
+  
