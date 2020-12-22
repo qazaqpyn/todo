@@ -102,8 +102,22 @@ function showTasks (currentFolder) {
     taskBody.innerHTML = "";
     currentFolder.getTasks().forEach(element => {
         console.log(element);
+        let taskDiv = document.createElement("div");
         let taskName = document.createElement("h1");
+        let checker = document.createElement("input");
+        let deleteButton = document.createElement("button");
+        let editButton = document.createElement("button");
+        let buttondiv = document.createElement("div");
+        checker.setAttribute("type", "checkbox");
+        checker.setAttribute("id", "_checkbox");
+        
+        deleteButton.innerText = "delete";
+        editButton.innerText = "edit";
         taskName.innerText = element.getName();
-        taskBody.appendChild(taskName);
+        taskDiv.classList.add("taskDiv");
+        buttondiv.append(editButton,deleteButton);
+        taskDiv.append(checker,taskName,buttondiv);
+        taskBody.appendChild(taskDiv);
+
     });
 }
