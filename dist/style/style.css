@@ -48,13 +48,32 @@ body {
 .bottom {
     grid-area: footer;
     margin: auto;
+    text-align: center;
 }
 
 .task-header, .folder-header {
     border-bottom: 2px solid rgb(123, 170, 214);
 }
 
+.folder-header {
+    display: flex;
+}
 
+#folder-add {
+    border:0;
+    border-bottom:2px solid hsl(0, 100%, 84%);  
+    background:transparent;
+    padding: 0;
+    height: 70%;
+    width:287px;
+    padding:8px 0 5px 0;
+    font-size:30px;
+    margin-top: 15px;
+    padding: 0;
+    text-align: center;
+    font-family: Papyrus;
+    outline: none;
+}
 
 .header h1 {
     margin: 0;
@@ -94,6 +113,7 @@ button {
     text-decoration: underline;
     background: var(--button-hover);
     box-shadow: inset 0 0 0 4px var(--colour-white);
+    border-radius: 24px;
   }
   
   button:active {
@@ -104,3 +124,7 @@ button {
     background: var(--button-visited);
   }
   
+.folder-active{
+    border-bottom:2px solid hsl(0, 100%, 84%);
+    width: 90%;
+}
