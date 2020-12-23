@@ -93,13 +93,14 @@ function addingTask(){
 };
 
 function addingListTasks(name, date, i) {
-    if (name !== "" && date !== "") {
+    if (name !== "" && date !== "" && dataFolder[i].getTasks().length<6) {
         dataFolder[i].addTask(name,date,false);
     }
 }
 
 function showTasks (currentFolder) {
     taskBody.innerHTML = "";
+    let n = 0;
     currentFolder.getTasks().forEach(element => {
         console.log(element);
         let taskDiv = document.createElement("div");
@@ -115,9 +116,20 @@ function showTasks (currentFolder) {
         editButton.innerText = "edit";
         taskName.innerText = element.getName();
         taskDiv.classList.add("taskDiv");
+        deleteButton.classList
+        deleteButton.name = n;
         buttondiv.append(editButton,deleteButton);
         taskDiv.append(checker,taskName,buttondiv);
         taskBody.appendChild(taskDiv);
+        deleteButton.addEventListener("click",(e)=> {
+            delete1Task(currentFolder,e);
+        })
+        n++;
 
     });
+}
+
+function delete1Task(currentFolder,e){
+    currentFolder.deleteTask(e.target.name);
+    showTasks(currentFolder);
 }
