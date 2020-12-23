@@ -115,15 +115,20 @@ function showTasks (currentFolder) {
         deleteButton.innerText = "delete";
         editButton.innerText = "edit";
         taskName.innerText = element.getName();
+        checker.checked = element.getDone();
         taskDiv.classList.add("taskDiv");
         deleteButton.classList
         deleteButton.name = n;
+        checker.name = n;
         buttondiv.append(editButton,deleteButton);
         taskDiv.append(checker,taskName,buttondiv);
         taskBody.appendChild(taskDiv);
         deleteButton.addEventListener("click",(e)=> {
             delete1Task(currentFolder,e);
         })
+        checker.addEventListener("change", (e)=>{
+            changeDoneChecker(currentFolder,e);
+        });
         n++;
 
     });
@@ -132,4 +137,8 @@ function showTasks (currentFolder) {
 function delete1Task(currentFolder,e){
     currentFolder.deleteTask(e.target.name);
     showTasks(currentFolder);
+};
+
+function changeDoneChecker(currentFolder,e) {
+    currentFolder.getTasks()[e.target.name].changeDone();
 }
