@@ -8,13 +8,26 @@ const inputFolder = document.querySelector("#folder-add");
 const header = document.querySelector(".header");
 let h1folder = document.querySelectorAll(".folder-body h1");
 
-
 let dataFolder = [];
+let currentStorage;
+
+localStorage.clear();
+
+
+
+if (storageAvailable('localStorage')) {
+    if(!localStorage.getItem('dataFolder')) {
+        populateStorage();
+    } else {
+        setStyles();
+    } 
+}
+    else {
+    currentStorage = dataFolder;
+}
+
+
 refreshThis();
-
-
-
-
 
 //enter pressed
 inputFolder.addEventListener("keyup", function(event) {
@@ -35,17 +48,24 @@ function refreshThis () {
         folderName.innerText = element.getName();
         folderBody.appendChild(folderName);
     });
+    
 };
 
 function addingFolder() {
     if (inputFolder.value !== "" && dataFolder.length<6) {
         dataFolder.push(Folder(inputFolder.value, []));
+        localStorage.setItem('dataFolder', JSON.stringify(dataFolder));
+        console.log(dataFolder);
+        console.log("josn");
+        console.log(JSON.parse(localStorage['dataFolder']));
         taskBody.innerHTML ="";
         inputFolder.value="";
         refreshThis();
         h1folder = document.querySelectorAll(".folder-body h1");
         showCurrentFolder();
+
     }
+    
 };
 
 
@@ -95,7 +115,9 @@ function addingTask(){
 function addingListTasks(name, date, i, done) {
     if (name !== "" && date !== "" && dataFolder[i].getTasks().length<6) {
         dataFolder[i].addTask(name,date,done);
+        localStorage.setItem('dataFolder', JSON.stringify(dataFolder));
     }
+    
 }
 
 function showTasks (currentFolder) {
@@ -176,3 +198,42 @@ function editTask(currentFolder,e){
     })
 
 };
+
+//localStorage
+function storageAvailable(type) {
+    var storage;
+    try {
+        storage = window[type];
+        var x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
+    }
+};
+
+function setStyles() {
+    currentStorage = localStorage.getItem('dataFolder');
+    
+    dataFolder = JSON.parse(currentStorage);
+    console.log(localStorage['dataFolder']);
+};
+
+function populateStorage() {
+    localStorage.setItem('dataFolder', JSON.stringify(dataFolder));
+    setStyles();
+};
+
