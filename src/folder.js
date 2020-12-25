@@ -27,10 +27,13 @@ const Task = (name, date, done) => {
     const getDone = () => {
         return done;
     }
+    const getDate = () => {
+        return date;
+    }
     const changeDone = () => {
         done = !done;
     }
-    return {getName, getDone, changeDone}
+    return {getName, getDone, changeDone, getDate}
 }
 
 export {Task, Folder};

@@ -83,7 +83,7 @@ function addingTask(){
                 divTask.append(taskName,taskDate,addTaskButton);
                 taskBody.appendChild(divTask);
                 addTaskButton.addEventListener('click', ()=>{
-                    addingListTasks(taskName.value,taskDate.value, i);
+                    addingListTasks(taskName.value,taskDate.value, i,false);
                     showTasks(dataFolder[i]);
                 });
                 
@@ -92,9 +92,9 @@ function addingTask(){
     });
 };
 
-function addingListTasks(name, date, i) {
+function addingListTasks(name, date, i, done) {
     if (name !== "" && date !== "" && dataFolder[i].getTasks().length<6) {
-        dataFolder[i].addTask(name,date,false);
+        dataFolder[i].addTask(name,date,done);
     }
 }
 
@@ -120,6 +120,7 @@ function showTasks (currentFolder) {
         deleteButton.classList
         deleteButton.name = n;
         checker.name = n;
+        editButton.name = n;
         buttondiv.append(editButton,deleteButton);
         taskDiv.append(checker,taskName,buttondiv);
         taskBody.appendChild(taskDiv);
@@ -129,6 +130,9 @@ function showTasks (currentFolder) {
         checker.addEventListener("change", (e)=>{
             changeDoneChecker(currentFolder,e);
         });
+        editButton.addEventListener("click", (e)=>{
+            editTask(currentFolder,e);
+        })
         n++;
 
     });
@@ -141,4 +145,34 @@ function delete1Task(currentFolder,e){
 
 function changeDoneChecker(currentFolder,e) {
     currentFolder.getTasks()[e.target.name].changeDone();
-}
+};
+
+function editTask(currentFolder,e){
+    let nameFolderEditing = currentFolder.getTasks()[e.target.name].getName();
+    let dateFolderEditing = currentFolder.getTasks()[e.target.name].getDate();
+    let doneFolderEditing = currentFolder.getTasks()[e.target.name].getDone();
+
+    taskBody.innerHTML = "";
+
+    const taskName = document.createElement("input");
+    const taskDate = document.createElement("input");
+    const divTask = document.createElement("div"); 
+    const addTaskButton = document.createElement("button");
+    divTask.classList.add("task-adding");
+    taskName.setAttribute("placeholder","Name:");
+    taskDate.setAttribute("placeholder", "Date:");
+    taskDate.setAttribute("type","date");
+    addTaskButton.innerText = "edit";
+    taskName.value = nameFolderEditing;
+    taskDate.value = dateFolderEditing;
+    
+    divTask.append(taskName,taskDate,addTaskButton);
+    taskBody.appendChild(divTask);
+
+    addTaskButton.addEventListener("click", ()=>{
+        currentFolder.deleteTask(e.target.name);
+        addingListTasks(taskName.value,taskDate.value, e.target.name, doneFolderEditing);
+        showTasks(currentFolder);
+    })
+
+};
